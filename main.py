@@ -1,4 +1,4 @@
-from bot import TOKEN, unknown, FAQ_list_inline, list_answers
+from bot import TOKEN, unknown, stickers, FAQ_list_inline, list_answers
 from states import SVO
 from aiogram.dispatcher import FSMContext
 from aiogram import Bot, Dispatcher, executor, types
@@ -17,6 +17,9 @@ dp = Dispatcher(bot, storage=storage)
 # handler на команду /start
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
+    hello = stickers('hello')
+
+    await bot.send_sticker(message.chat.id, hello)
     await message.answer('👋 Привет, {0.first_name}!'
         '\nЯ — HR-бот аэропорта Шереметьево. Помогаю адаптироваться новым сотрудникам. Чтобы начать пользоваться сервисом, перейди в Главное меню, нажав на кнопку'.format(message.from_user),
         reply_markup=kb.reply_main)
@@ -73,6 +76,9 @@ async def main(message: types.Message, state:FSMContext):
             print("Error: message_id not found")
 
     else:
+        unknown_ = stickers('unknown')
+    
+        await bot.send_sticker(message.chat.id, unknown_)
         await message.answer(random.choice(unknown),
             reply_markup=kb.reply_menu)
 
@@ -281,32 +287,26 @@ async def faq(callback_query: types.CallbackQuery, state:FSMContext):
 @dp.callback_query_handler(lambda message: message.data.startswith("more0"))
 async def more0(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
-    with open("/home/git/svo-tg/static/sticker1.webp", "rb") as file1:
-        sticker1 = file1.read()
 
-    with open("/home/git/svo-tg/static/sticker2.webp", "rb") as file2:
-        sticker2 = file2.read()
+    BDC = stickers('BDC')
+    P17 = stickers('P17')
+    P13 = stickers('P13')
+    EF = stickers('EF')
 
-    with open("/home/git/svo-tg/static/sticker3.webp", "rb") as file3:
-        sticker3 = file3.read()
-
-    with open("/home/git/svo-tg/static/sticker4.webp", "rb") as file4:
-        sticker4 = file4.read()
-
-    await bot.send_sticker(callback_query.from_user.id, sticker1)
+    await bot.send_sticker(callback_query.from_user.id, BDC)
     await bot.send_message(callback_query.from_user.id, 'Места внутри паркинга:\n5000 рублей в месяц\n\nМеста на крыше паркинга:\n4000 рублей в месяц',
         reply_markup=ReplyKeyboardRemove())
     await asyncio.sleep(3)
 
-    await bot.send_sticker(callback_query.from_user.id, sticker2)
+    await bot.send_sticker(callback_query.from_user.id, P17)
     await bot.send_message(callback_query.from_user.id, 'Стоимость абонемента на парковку для сотрудников составляет:\n3000 рублей в месяц\n\nДля членов профсоюза: 2500 рублей в месяц')
     await asyncio.sleep(3.5)
 
-    await bot.send_sticker(callback_query.from_user.id, sticker3)
+    await bot.send_sticker(callback_query.from_user.id, P13)
     await bot.send_message(callback_query.from_user.id, 'Стоимость абонемента для сотрудников составляет:\n2500 рублей в месяц')
     await asyncio.sleep(3.5)
 
-    await bot.send_sticker(callback_query.from_user.id, sticker4)
+    await bot.send_sticker(callback_query.from_user.id, EF)
     await bot.send_message(callback_query.from_user.id, 'Парковка Р4:\nСтоимость абонемента для сотрудников составляет:\n5000 рублей в месяц\n\nПарковка Р6:\nСтоимость абонемента для сотрудников составляет:\n4000 рублей в месяц\n\n'
         'Можешь еще раз задать вопрос или вернуться в Главное меню',
         reply_markup=kb.reply_again_main)
