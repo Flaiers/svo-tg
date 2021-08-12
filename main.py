@@ -1,4 +1,4 @@
-from bot import TOKEN, unknown, stickers, FAQ_list_inline, list_answers
+from config import TOKEN, unknown, stickers, FAQ_list_inline, list_answers
 from states import SVO
 from aiogram.dispatcher import FSMContext
 from aiogram import Bot, Dispatcher, executor, types

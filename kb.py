@@ -1,7 +1,8 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, \
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, \
                         InlineKeyboardMarkup, InlineKeyboardButton
 
-from bot import FAQ_list_inline
+from config import FAQ_list_inline
+
 
 # текст кнопок
 button_main = KeyboardButton('🏠 Главное меню')
@@ -28,7 +29,7 @@ button_to_khlebnikovo = KeyboardButton('Хлебниково')
 
 FAQ_button_list = []
 
-for i,(q,a) in enumerate(FAQ_list_inline):
+for i, (q, a) in enumerate(FAQ_list_inline):
     FAQ_button_list.append(InlineKeyboardButton(q, callback_data="FAQ{}".format(i)))
 
 # включение в работу кнопок
@@ -42,9 +43,17 @@ reply_back = ReplyKeyboardMarkup(resize_keyboard=True).add(button_back)
 
 reply_transport_main = ReplyKeyboardMarkup(resize_keyboard=True).add(button_to, button_from).add(button_main)
 
-reply_from_location = ReplyKeyboardMarkup(resize_keyboard=True).add(button_from_skhodnenskaya).add(button_from_lobnya, button_from_polyana).add(button_from_zelenograd, button_from_khlebnikovo).add(button_back)
+reply_from_location = ReplyKeyboardMarkup(resize_keyboard=True)\
+    .add(button_from_skhodnenskaya)\
+    .add(button_from_lobnya, button_from_polyana)\
+    .add(button_from_zelenograd, button_from_khlebnikovo)\
+    .add(button_back)
 
-reply_to_location = ReplyKeyboardMarkup(resize_keyboard=True).add(button_to_skhodnenskaya).add(button_to_lobnya, button_to_polyana).add(button_to_zelenograd, button_to_khlebnikovo).add(button_back)
+reply_to_location = ReplyKeyboardMarkup(resize_keyboard=True)\
+    .add(button_to_skhodnenskaya)\
+    .add(button_to_lobnya, button_to_polyana)\
+    .add(button_to_zelenograd, button_to_khlebnikovo)\
+    .add(button_back)
 
 inline_more0 = InlineKeyboardMarkup().add(button_more0)
 
